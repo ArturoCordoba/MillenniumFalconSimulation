@@ -2,7 +2,6 @@
 // Created by arturocv on 07/10/17.
 //
 
-#include <malloc.h>
 #include "Matrix.h"
 
 template <class T>
