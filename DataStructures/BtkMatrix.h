@@ -73,12 +73,12 @@ public:
         if(row < rows && column < columns){ //La posicion ingresada esta dentro de los limites de la matriz
             BtkMatrixNode<T>* node = first;
 
-            for (int i = 1; i < row; ++i) { //Se busca la columna correcta
-                node = node->getRigth();
+            for (int i = 0; i < row; ++i) { //Se busca la columna correcta
+                node = node->getDown();
             }
 
             for (int j = 0; j < column; ++j) { //Se busca en la fila el nodo solicitado
-                node = node->getDown();
+                node = node->getRigth();
             }
 
             return node;

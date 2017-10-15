@@ -179,18 +179,20 @@ void LinkedList<T>::deleteElement(int position) {
 /// \param data Elemento que se desea eliminar
 template <class T>
 void LinkedList<T>::deleteElement2(T data) {
-    Node<T>* current = first;
+    Node<T> *current = first;
 
-    if(*current->getData() == *data){
-        first = first->getNext();
-        this->size--;
-    } else{
-        while(current != nullptr && current->getNext() != nullptr){
-            if(*current->getNext()->getData() == *data){
-                current->setNext(current->getNext()->getNext());
-                this->size--;
+    if (size > 0){
+        if (*current->getData() == *data) {
+            first = first->getNext();
+            this->size--;
+        } else {
+            while (current != nullptr && current->getNext() != nullptr) {
+                if (*current->getNext()->getData() == *data) {
+                    current->setNext(current->getNext()->getNext());
+                    this->size--;
+                }
+                current = current->getNext();
             }
-            current = current->getNext();
         }
     }
 }
