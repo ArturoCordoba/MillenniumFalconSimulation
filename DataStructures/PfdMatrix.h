@@ -1,29 +1,28 @@
 //
-// Created by arturocv on 07/10/17.
+// Created by arturocv on 11/10/17.
 //
 
-#ifndef MILLENNIUMFALCONSIMULATION_MATRIX_H
-#define MILLENNIUMFALCONSIMULATION_MATRIX_H
+#ifndef MILLENNIUMFALCONSIMULATION_PFDMATRIX_H
+#define MILLENNIUMFALCONSIMULATION_PFDMATRIX_H
 
 #include <iostream>
-#include "BtkMatrixNode.h"
-#include "../MillenniumFalconBacktracking/Backtracking.h"
+#include "PfdMatrixNode.h"
 
 template <class T>
-class BtkMatrix {
+class PfdMatrix {
 public:
     /// Constructor de la clase
     /// \param rows Numero de filas de la matriz
     /// \param columns Numero de columnas de la matriz
-    BtkMatrix(int rows, int columns) {
-        BtkMatrix::rows = rows;
-        BtkMatrix::columns = columns;
+    PfdMatrix(int rows, int columns) {
+        PfdMatrix::rows = rows;
+        PfdMatrix::columns = columns;
 
-        BtkMatrixNode<T>* previousRow = nullptr; //Referencia a la fila previa a la que se esta creando
+        PfdMatrixNode<T>* previousRow = nullptr; //Referencia a la fila previa a la que se esta creando
 
         for (int i = 0; i < rows; ++i) { //Se crea el primer nodo de cada columna
-            BtkMatrixNode<T>* columnNode = new BtkMatrixNode<T>(i , 0);
-            BtkMatrixNode<T>* current = columnNode;
+            PfdMatrixNode<T>* columnNode = new PfdMatrixNode<T>();
+            PfdMatrixNode<T>* current = columnNode;
 
             //Se asignan las referencias arriba y abajo de los primeros nodos de la fila anterior y la fila actual segun corresponda
             if(previousRow != nullptr){ //Ya la primera fila ha sido creada
@@ -33,10 +32,10 @@ public:
             }
 
             if(i == 0) //Es el primer nodo columna que se crea
-                BtkMatrix::first = columnNode;
+                PfdMatrix::first = columnNode;
 
             for (int j = 1; j < columns; ++j) { //Se crean el resto de nodos de cada fila
-                BtkMatrixNode<T>* rowNode = new BtkMatrixNode<T>(i ,j); //Se crea el nodo fila
+                PfdMatrixNode<T>* rowNode = new PfdMatrixNode<T>(); //Se crea el nodo fila
                 rowNode->setLeft(current); //Al nuevo nodo fila se le asigna el nodo que tiene a la izquierda
                 current->setRight(rowNode); //El nodo que esta a la izquierda del nuevo nodo, se le asigna el nuevo nodo como right
 
@@ -54,25 +53,25 @@ public:
         }
     }
 
-    BtkMatrixNode<T>* getFirst() {
-        return BtkMatrix::first;
+    PfdMatrixNode<T>* getFirst() {
+        return PfdMatrix::first;
     }
 
     int getColumns() {
-        return BtkMatrix::columns;
+        return PfdMatrix::columns;
     }
 
     int getRows() {
-        return BtkMatrix::rows;
+        return PfdMatrix::rows;
     }
 
     /// Metodo para obtener un nodo de la matriz
     /// \param row Numero de fila en la que esta el nodo
     /// \param column Numero de columna en la que esta el nodo
     /// \return El nodo solicitado, nullptr si la posicion ingresada esta fuera de los limites
-    BtkMatrixNode<T>* getNode(int row, int column) {
+    PfdMatrixNode<T>* getNode(int row, int column) {
         if(row < rows && column < columns){ //La posicion ingresada esta dentro de los limites de la matriz
-            BtkMatrixNode<T>* node = first;
+            PfdMatrixNode<T>* node = first;
 
             for (int i = 0; i < row; ++i) { //Se busca la columna correcta
                 node = node->getDown();
@@ -95,7 +94,7 @@ public:
     /// \param data Elemento a establecer
     void setElement(int row, int column, T data) {
         if(column < columns && row < rows){ //La posicion ingresada esta dentro de los limites de la matriz
-            BtkMatrixNode<T>* node = first;
+            PfdMatrixNode<T>* node = first;
 
             for (int i = 0; i < row; ++i) { //Se busca la columna correcta
                 node = node->getDown();
@@ -111,11 +110,11 @@ public:
 
     ///Metodo para imprimir la matriz por consola
     void printMatrix() {
-        BtkMatrixNode<T>* currentColumn = first;
+        PfdMatrixNode<T>* currentColumn = first;
 
         for (int i = 0; i < rows; ++i) {
             std::cout << "[" << currentColumn->getData() << ", ";
-            BtkMatrixNode<T>* currentRow = currentColumn->getRigth();
+            PfdMatrixNode<T>* currentRow = currentColumn->getRigth();
 
             for (int j = 0; j < columns - 1; ++j) {
                 std::cout << currentRow->getData() << ", ";
@@ -127,8 +126,26 @@ public:
         }
     }
 
+    ///Metodo para imprimir los H de cada nodo de la matriz
+    void printH() {
+        PfdMatrixNode<T>* currentColumn = first;
+
+        for (int i = 0; i < rows; ++i) {
+            std::cout << "[" << currentColumn->getH() << ", ";
+            PfdMatrixNode<T>* currentRow = currentColumn->getRigth();
+
+            for (int j = 0; j < columns - 1; ++j) {
+                std::cout << currentRow->getH() << ", ";
+                currentRow = currentRow->getRigth();
+            }
+
+            std::cout << "]" << std::endl;
+            currentColumn = currentColumn->getDown();
+        }
+    }
+
 private:
-    BtkMatrixNode<T>* first; //Punto de entrada a la matriz, nodo de la esquina superior izquierda
+    PfdMatrixNode<T>* first; //Punto de entrada a la matriz, nodo de la esquina superior izquierda
 
     int rows; //Numero de filas de la matriz
 
@@ -137,4 +154,4 @@ private:
 };
 
 
-#endif //MILLENNIUMFALCONSIMULATION_MATRIX_H
+#endif //MILLENNIUMFALCONSIMULATION_PFDMATRIX_H

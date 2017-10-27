@@ -16,6 +16,11 @@ public:
         BtkMatrixNode::data = data;
     }
 
+    BtkMatrixNode(int x, int y) {
+        BtkMatrixNode::rowNum = x;
+        BtkMatrixNode::columnNum = y;
+    }
+
     T getData() {
         return BtkMatrixNode::data;
     }
@@ -56,6 +61,14 @@ public:
         BtkMatrixNode::down = node;
     }
 
+    int getRowNum(){
+        return  BtkMatrixNode::rowNum;
+    }
+
+    int getColumnNum(){
+        return  BtkMatrixNode::columnNum;
+    }
+
     bool operator==(BtkMatrixNode<T> &node) {
         if(this == &node) return (true);
         return (false);
@@ -63,10 +76,18 @@ public:
 
 private:
     T data;
+
     BtkMatrixNode<T>* right = nullptr;
+
     BtkMatrixNode<T>* left = nullptr;
+
     BtkMatrixNode<T>* up = nullptr;
+
     BtkMatrixNode<T>* down = nullptr;
+
+    int rowNum;
+
+    int columnNum;
 };
 
 
