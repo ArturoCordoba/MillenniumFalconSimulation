@@ -28,7 +28,7 @@ public:
         for (int i = 0; i < (size - 1); ++i) {
             Node<T> *current = first;
             first = first->getNext();
-            delete current;
+            free(current);
         }
     }
 

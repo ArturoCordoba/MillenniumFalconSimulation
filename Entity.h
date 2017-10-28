@@ -39,6 +39,14 @@ public:
 
     void substractLive();
 
+    int getLeft();
+
+    int getRight();
+
+    int getBottom();
+
+    int getTop();
+
 protected:
     sf::Texture texture;
     sf::Sprite* sprite;

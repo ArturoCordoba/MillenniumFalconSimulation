@@ -21,7 +21,7 @@ public:
         PfdMatrixNode<T>* previousRow = nullptr; //Referencia a la fila previa a la que se esta creando
 
         for (int i = 0; i < rows; ++i) { //Se crea el primer nodo de cada columna
-            PfdMatrixNode<T>* columnNode = new PfdMatrixNode<T>();
+            PfdMatrixNode<T>* columnNode = new PfdMatrixNode<T>(i , 0);
             PfdMatrixNode<T>* current = columnNode;
 
             //Se asignan las referencias arriba y abajo de los primeros nodos de la fila anterior y la fila actual segun corresponda
@@ -35,7 +35,7 @@ public:
                 PfdMatrix::first = columnNode;
 
             for (int j = 1; j < columns; ++j) { //Se crean el resto de nodos de cada fila
-                PfdMatrixNode<T>* rowNode = new PfdMatrixNode<T>(); //Se crea el nodo fila
+                PfdMatrixNode<T>* rowNode = new PfdMatrixNode<T>(i ,j); //Se crea el nodo fila
                 rowNode->setLeft(current); //Al nuevo nodo fila se le asigna el nodo que tiene a la izquierda
                 current->setRight(rowNode); //El nodo que esta a la izquierda del nuevo nodo, se le asigna el nuevo nodo como right
 

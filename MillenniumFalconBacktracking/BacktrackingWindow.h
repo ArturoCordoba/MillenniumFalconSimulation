@@ -27,8 +27,6 @@ private:
     static int xSize;
     static int ySize;
 
-    int iteration = 0;
-
     BtkMatrix<int>* matrix;
 
     Node<BtkMatrixNode<int>*>* current;

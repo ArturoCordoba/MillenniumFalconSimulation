@@ -13,13 +13,23 @@ template <class T>
 class PfdMatrixNode {
 private:
     T data;
+
     int F = std::numeric_limits<int>::max();
+
     int G = 0;
+
     int H;
+
+    int rowNum, columnNum;
+
     PfdMatrixNode<T>* parent = nullptr;
+
     PfdMatrixNode<T>* right = nullptr;
+
     PfdMatrixNode<T>* left = nullptr;
+
     PfdMatrixNode<T>* up = nullptr;
+
     PfdMatrixNode<T>* down = nullptr;
 
 public:
@@ -28,6 +38,11 @@ public:
 
     PfdMatrixNode(T data){
         PfdMatrixNode::data = data;
+    }
+
+    PfdMatrixNode(int x, int y) {
+        PfdMatrixNode::rowNum = x;
+        PfdMatrixNode::columnNum = y;
     }
 
     void setData(T data){
@@ -100,6 +115,14 @@ public:
 
     void setDown(PfdMatrixNode<T>* node) {
         PfdMatrixNode::down = node;
+    }
+
+    int getRowNum(){
+        return  PfdMatrixNode::rowNum;
+    }
+
+    int getColumnNum(){
+        return  PfdMatrixNode::columnNum;
     }
 
     bool operator==(PfdMatrixNode<T> &node) {

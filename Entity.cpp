@@ -106,3 +106,19 @@ void Entity::correctPosition() {
     update(); //Se actualizan las variables para colisiones
 }
 
+int Entity::getLeft() {
+    return Entity::left;
+}
+
+int Entity::getRight() {
+    return Entity::right;
+}
+
+int Entity::getBottom() {
+    return Entity::bottom;
+}
+
+int Entity::getTop() {
+    return Entity::top;
+}
+
